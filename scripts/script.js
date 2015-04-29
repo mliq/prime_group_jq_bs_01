@@ -14,13 +14,22 @@ function Game(name, image, icon, deck, platforms) {
 }
 
 // Returns a string that can be appended to a given row
-Game.prototype.display = function(){
+Game.prototype.displayFromRight = function(){
 	$gallery = $('.js-gallery');
+	// Slide out the first game
+	$gallery.css({"left" : "0px"});
+	$gallery.animate({"left" : "-=100px"});
+	$gallery.fadeOut();
+	// Build the new game's information
 	$gallery.empty();
 	$gallery.append('<div class="gallery-head">' + this.name + '</div>');
 	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
     $gallery.append('<div class="gallery-platforms"><h4>Platforms</h4><p>' + this.platforms + '</p></div>');
     $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
+	// Slide in the new game
+	$gallery.css({"left" : "0px", "right" : "-100px"});
+	$gallery.fadeIn();
+	$gallery.animate({"right" : "+=100px"});
 };
 
 // Button functionality
@@ -32,7 +41,7 @@ function showNextGame() {
 	else {
 		currentGame = 0;
 	}
-	games[currentGame].display();
+	games[currentGame].displayFromRight();
     selectGameIcon();
 }
 
@@ -44,8 +53,8 @@ function showPrevGame() {
 	else {
 		currentGame = games.length-1;
 	}
-	games[currentGame].display();
     selectGameIcon();
+	slideLeft($('.js-gallery'));
 }
 
 // Use this function to do stuff with your results. 
@@ -94,7 +103,7 @@ function searchCallback(results) {
 	}
 	// When finished, reset currentGame to the first game in the list and display it
 	currentGame = 0;
-	games[currentGame].display();
+	games[currentGame].displayFromRight();
     selectGameIcon();
 	$('main').fadeIn();
 }
