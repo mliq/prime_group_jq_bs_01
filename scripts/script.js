@@ -16,8 +16,9 @@ function Game(name, image, icon, deck) {
 Game.prototype.display = function(){
 	$gallery = $('.js-gallery');
 	$gallery.empty();
-	$gallery.append('<div class="gallery-head">' + this.name + '</h3>');
+	$gallery.append('<div class="gallery-head">' + this.name + '</div>');
 	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
+	$gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
 };
 
 // Button functionality

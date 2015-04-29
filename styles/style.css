@@ -62,12 +62,6 @@ h1, h2, h3 {
     float: right;
 }
 
-/* Note: I removed some tweaks to better see the theme */
-
-.well {
-    background: none;
-}
-
 .container {
     margin-bottom: 20px;
 }
@@ -77,9 +71,15 @@ h1, h2, h3 {
     text-align: center;
 }
 
+.gallery-head {
+    font-size: 32px;
+    font-weight: 300;
+}
+
 .gallery-img img {
     max-width: 100%;
     max-height: 200px;
     border-radius: 5px;
     border: 1px solid #212121;
+    margin: 10px 0;
 }
