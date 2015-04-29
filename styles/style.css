@@ -86,11 +86,15 @@ h1, h2, h3 {
 
 .js-game-icons div {
     margin-right: 10px;
-    border: 1px solid #212121;
     display: inline;
 }
 
 .js-game-icons {
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     text-align: center;
+
+}
+
+.js-game-icons div img {
+    border: 1px solid #212121;
 }
