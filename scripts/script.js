@@ -5,11 +5,12 @@ var loadAnimation; // setInterval()
 var currentGame = 0;
 
 // Game object constructor
-function Game(name, image, icon, deck) {
+function Game(name, image, icon, deck, platforms) {
 	this.name = name;
 	this.image = image;
 	this.icon = icon;
 	this.deck = deck;
+    this.platforms = platforms;
 }
 
 // Returns a string that can be appended to a given row
@@ -18,7 +19,8 @@ Game.prototype.display = function(){
 	$gallery.empty();
 	$gallery.append('<div class="gallery-head">' + this.name + '</div>');
 	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
-	$gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
+    $gallery.append('<div class="gallery-platforms"><h4>Platforms</h4><p>' + this.platforms + '</p></div>');
+    $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
 };
 
 // Button functionality
@@ -49,7 +51,7 @@ function showPrevGame() {
 // Use this function to do stuff with your results. 
 // It is called after 'search' is executed.
 function searchCallback(results) {
-	var image, icon, deck;
+	var image, icon, deck, platformString;
 	// Initialize the games array
 	games = [];
 	console.log(results);
@@ -73,8 +75,20 @@ function searchCallback(results) {
 		else {
 			deck = results[i].deck;
 		}
+
+        // Check if platform is array, and if it has multiple items store to platformString
+        platformString = "";
+        if(!results[i].platforms.length){
+            platformString += "N/A";
+        } else {
+            for (j = 0; j < results[i].platforms.length - 1; j++) {
+                platformString += results[i].platforms[j].name + ", ";
+            }
+            platformString += results[i].platforms[j].name;
+
+        }
 		// Make a new game object and add it to the array of games
-		games.push(new Game(results[i].name, image, icon, deck));
+		games.push(new Game(results[i].name, image, icon, deck, platformString));
 
         $('.js-game-icons').append("<div class='gameNumber" + i + "'><img src='" + icon + "'></div>");
 	}
