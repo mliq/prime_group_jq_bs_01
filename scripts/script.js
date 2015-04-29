@@ -1,8 +1,7 @@
 var apikey = '2eb42e716bed1a73379b1ff939133dc62408ceb3'; // Put your API key here
 var i, games;
-
-// string commonly used in all games
-var removeBtn = '<div class="game-remove"><button class="js-btn-remove btn btn-sm btn-success">Remove</button></div>';
+var loadCount = 0;
+var loadAnimation; // setInterval()
 
 // Game object constructor
 function Game(name, image, desc) {
@@ -12,9 +11,9 @@ function Game(name, image, desc) {
 }
 
 // Returns a string that can be appended to a given row
-Game.prototype.display = function(number){
+Game.prototype.display = function(){
 	// Notes: We assign the parent div a data-parent of i so we can find its index on removal
-	return ('<div class="col-sm-4" data-parent="' + number +'"><div class="game well well-sm">' + this.header + this.desc + removeBtn + '</div></div>');
+	return ('<div class="col-sm-4"><div class="game well well-sm">' + this.header + this.desc + '</div></div>');
 };
 
 // Loops through games and displays them all in rows
@@ -30,7 +29,7 @@ function displayGames() {
 			$main.append($row);
 		}
 		// Add the game to the current row and fade it in
-		$row.append(games[i].display(i));
+		$row.append(games[i].display());
 		$row.fadeIn("slow");
 	}
 }
@@ -69,6 +68,19 @@ function searchCallback(results) {
 // Executes a search using 'query' and runs searchCallback on the results of a success.
 function search(query){
 
+	// Loading... animation
+	$('.js-load').show();
+	loadAnimation = setInterval(function(){
+		loadCount++;
+		if (loadCount == 4) {
+			loadCount = 0;
+			$('.js-load p').text('Loading');
+		}
+		else {
+			$('.js-load p').append('.');
+		}
+	}, 750);
+
 	$.ajax ({
 		type: 'GET',
 		dataType: 'jsonp',
@@ -77,6 +89,10 @@ function search(query){
 		url: 'http://www.giantbomb.com/api/search/?format=jsonp&resources=game&api_key=' + apikey +'&query=' + encodeURI(query),
 		complete: function() {
 			console.log('ajax complete');
+			// Stop load animation and reset the box
+			clearInterval(loadAnimation);
+			$('.js-load p').text('Loading');
+			$('.js-load').hide();
 		},
 		success: function(data) {
 			searchCallback(data.results);
@@ -87,6 +103,8 @@ function search(query){
 
 // Do when the document is ready
 $(document).ready(function() {
+	// Hide js-load
+	$('.js-load').hide();
 
 	// Start the search here!
 	$('.js-btn-search').click(function(){
@@ -106,17 +124,5 @@ $(document).ready(function() {
 		}
 	});
 
-	// Listen for remove button clicks
-	$('main').on('click', '.js-btn-remove', function(){
-		$(this).closest('.col-sm-4').fadeOut("slow", function(){
-			$this = $(this);
-			// Find the element's position in the array and remove it
-			games.splice([$this.attr("data-parent")], 1);
-			// Remove the element from the DOM
-			$(this).remove();
-			// Redraw everything
-			displayGames();
-		});
-	});
 	
 });
