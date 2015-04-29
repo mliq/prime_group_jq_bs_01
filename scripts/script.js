@@ -5,12 +5,13 @@ var loadAnimation; // setInterval()
 var currentGame = 0;
 
 // Game object constructor
-function Game(name, image, icon, deck, platforms) {
+function Game(name, image, icon, deck, platforms, description) {
 	this.name = name;
 	this.image = image;
 	this.icon = icon;
 	this.deck = deck;
     this.platforms = platforms;
+    this.description = description;
 }
 
 // Returns a string that can be appended to a given row
@@ -22,6 +23,7 @@ Game.prototype.display = function(){
 	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
     $gallery.append('<div class="gallery-platforms"><h4>Platforms</h4><p>' + this.platforms + '</p></div>');
     $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
+    $gallery.append('<div class="">' + this.description + "</div>");
 	// Fade in the new game
 	$gallery.fadeIn();
 };
@@ -58,7 +60,7 @@ function showPrevGame() {
 // Use this function to do stuff with your results. 
 // It is called after 'search' is executed.
 function searchCallback(results) {
-	var image, icon, deck, platformString;
+	var image, icon, deck, platformString, descriptionString;
 	// Initialize the games array
 	games = [];
 	console.log(results);
@@ -76,7 +78,7 @@ function searchCallback(results) {
 			image = results[i].image.small_url;
 			icon = results[i].image.tiny_url;
 		}
-		if (!results[i].deck) {
+		if (results[i].deck == null || "  " || " ") {
 			deck = "Description unavailable.";
 		}
 		else {
@@ -92,10 +94,20 @@ function searchCallback(results) {
                 platformString += results[i].platforms[j].name + ", ";
             }
             platformString += results[i].platforms[j].name;
-
         }
-		// Make a new game object and add it to the array of games
-		games.push(new Game(results[i].name, image, icon, deck, platformString));
+        // Check if description is null, if null, use deck, store to descriptionString
+        descriptionString = "";
+        if (results[i].description == null || "  " || " ") {
+            descriptionString = "No Description Available";
+        } else {
+            descriptionString = results[i].description;
+        }
+        // Truncate and clean descriptionString
+        descriptionString = descriptionString.replace(/<(?:.|\n)*?>/gm, '');
+        //descriptionString = descriptionString.slice(0,150);
+
+        // Make a new game object and add it to the array of games
+		games.push(new Game(results[i].name, image, icon, deck, platformString, descriptionString));
 
         $('.js-game-icons').append("<div class='gameNumber" + i + "'><img src='" + icon + "'></div>");
 	}
