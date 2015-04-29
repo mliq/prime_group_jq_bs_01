@@ -2,36 +2,42 @@ var apikey = '2eb42e716bed1a73379b1ff939133dc62408ceb3'; // Put your API key her
 var i, games;
 var loadCount = 0;
 var loadAnimation; // setInterval()
+var currentGame = 0;
 
 // Game object constructor
-function Game(name, image, desc) {
-	var gameImage = '<div class="game-img hidden-sm hidden-xs"><img src="' + image + '"></div>';
-	this.header = '<div class="game-header">' + gameImage + '<p class="lead">' + name + '</p></div>';
-	this.desc = '<div class="game-desc"><p>' + desc + '</p></div>';
+function Game(name, image, deck) {
+	this.name = name;
+	this.image = image;
+	this.deck = deck;
 }
 
 // Returns a string that can be appended to a given row
 Game.prototype.display = function(){
-	// Notes: We assign the parent div a data-parent of i so we can find its index on removal
-	return ('<div class="col-sm-4"><div class="game well well-sm">' + this.header + this.desc + '</div></div>');
+	$gallery = $('.js-gallery');
+	$gallery.empty();
+	$gallery.append('<h3>' + this.name + '</h3>');
 };
 
-// Loops through games and displays them all in rows
-function displayGames() {
-	// Declare row and main; empty main
-	var $main = $('main');
-	var $row;
-	$main.empty();
-	for (i=0; i<games.length; i++) {
-		// Every 3 columns, make a new row and append it to main
-		if (i % 3 == 0) {
-			$row = $('<div class="row"></div>').hide();
-			$main.append($row);
-		}
-		// Add the game to the current row and fade it in
-		$row.append(games[i].display());
-		$row.fadeIn("slow");
+function showNextGame() {
+	// Check if "next" index is not going to be invalid
+	if (currentGame+1 < games.length) {
+		currentGame++;
 	}
+	else {
+		currentGame = 0;
+	}
+	games[currentGame].display();
+}
+
+function showPrevGame() {
+	// Check if "previous" index is not going to be invalid
+	if (currentGame-1 >= 0) {
+		currentGame++;
+	}
+	else {
+		currentGame = games.length-1;
+	}
+	games[currentGame].display();
 }
 
 // Use this function to do stuff with your results. 
@@ -59,8 +65,9 @@ function searchCallback(results) {
 		// Make a new game object and add it to the array of games
 		games.push(new Game(results[i].name, image, deck));
 	}
-	// When finished, display all games
-	displayGames();
+	// When finished, reset currentGame to the first game in the list and display it
+	currentGame = 0;
+	games[currentGame].display();
 }
 
 
@@ -81,6 +88,7 @@ function search(query){
 		}
 	}, 750);
 
+	// AJAX function
 	$.ajax ({
 		type: 'GET',
 		dataType: 'jsonp',
@@ -124,5 +132,11 @@ $(document).ready(function() {
 		}
 	});
 
-	
+	$('.js-btn-prev').click(function() {
+		showPrevGame();
+	});
+
+	$('.js-btn-next').click(function() {
+		showNextGame();
+	});
 });
