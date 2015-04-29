@@ -5,9 +5,10 @@ var loadAnimation; // setInterval()
 var currentGame = 0;
 
 // Game object constructor
-function Game(name, image, deck) {
+function Game(name, image, icon, deck) {
 	this.name = name;
 	this.image = image;
+	this.icon = icon;
 	this.deck = deck;
 }
 
@@ -45,7 +46,7 @@ function showPrevGame() {
 // Use this function to do stuff with your results. 
 // It is called after 'search' is executed.
 function searchCallback(results) {
-	var image, deck;
+	var image, icon, deck;
 	// Initialize the games array
 	games = [];
 	console.log(results);
@@ -54,9 +55,11 @@ function searchCallback(results) {
 		// Placeholder images and decks as appropriate
 		if (!results[i].image) {
 			image = "http://placekitten.com/g/500/500";
+			icon = "http://placekitten.com/g/16/16";
 		}
 		else {
-			image = results[i].image.thumb_url;
+			image = results[i].image.small_url;
+			icon = results[i].image.tiny_url;
 		}
 		if (!results[i].deck) {
 			deck = "Description unavailable.";
@@ -65,7 +68,7 @@ function searchCallback(results) {
 			deck = results[i].deck;
 		}
 		// Make a new game object and add it to the array of games
-		games.push(new Game(results[i].name, image, deck));
+		games.push(new Game(results[i].name, image, icon, deck));
 	}
 	// When finished, reset currentGame to the first game in the list and display it
 	currentGame = 0;

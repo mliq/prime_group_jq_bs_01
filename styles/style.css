@@ -73,6 +73,13 @@ h1, h2, h3 {
 }
 
 /* Module: Gallery */
-.gallery-head {
+.gallery-head, .gallery-img {
     text-align: center;
+}
+
+.gallery-img img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 5px;
+    border: 1px solid #212121;
 }
