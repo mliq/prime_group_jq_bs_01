@@ -74,6 +74,7 @@ function searchCallback(results) {
 	// When finished, reset currentGame to the first game in the list and display it
 	currentGame = 0;
 	games[currentGame].display();
+	$('main').fadeIn();
 }
 
 
@@ -117,8 +118,9 @@ function search(query){
 
 // Do when the document is ready
 $(document).ready(function() {
-	// Hide js-load
+	// Hide js-load and gallery
 	$('.js-load').hide();
+	$('main').hide();
 
 	// Start the search here!
 	$('.js-btn-search').click(function(){
