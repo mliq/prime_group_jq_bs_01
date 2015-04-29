@@ -51,6 +51,9 @@ function searchCallback(results) {
 	// Initialize the games array
 	games = [];
 	console.log(results);
+    // Clear array
+    $('.js-game-icons').empty();
+
 	// Only get the top 9 results
 	for (i=0; i<8; i++){
 		// Placeholder images and decks as appropriate
@@ -70,6 +73,8 @@ function searchCallback(results) {
 		}
 		// Make a new game object and add it to the array of games
 		games.push(new Game(results[i].name, image, icon, deck));
+
+        $('.js-game-icons').append("<div data-game='" + i + "'><img src='" + icon + "'></div>");
 	}
 	// When finished, reset currentGame to the first game in the list and display it
 	currentGame = 0;

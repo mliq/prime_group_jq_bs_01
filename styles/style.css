@@ -83,3 +83,14 @@ h1, h2, h3 {
     border: 1px solid #212121;
     margin: 10px 0;
 }
+
+.js-game-icons div {
+    margin-right: 10px;
+    border: 1px solid #212121;
+    display: inline;
+}
+
+.js-game-icons {
+    margin: 0 auto;
+    text-align: center;
+}
