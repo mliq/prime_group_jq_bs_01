@@ -1,0 +1,73 @@
+h1, h2, h3 {
+    font-weight: 300;
+}
+
+.game {
+    margin-right: 2%;
+    margin-bottom: 20px;
+    padding: 2%;
+    width: 98%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.game:last-child {
+    margin-right: 0;
+}
+
+.game img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #212121;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.game div {
+    float: left;
+}
+
+.game-img {
+    max-width: 15%;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+
+.game-header {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.game-header p {
+    position: relative;
+    top: 50%;
+    transform: translate(0, 50%);
+    float: left;
+    max-width: 85%;
+    /* Ellipsis overflow */
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.game-remove {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    right: 0;
+}
+
+.game-remove button {
+    float: right;
+}
+
+/* Note: I removed some tweaks to better see the theme */
+
+.well {
+    background: none;
+}
+
+.container {
+    margin-bottom: 20px;
+}
