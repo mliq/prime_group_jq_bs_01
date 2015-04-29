@@ -102,3 +102,7 @@ h1, h2, h3 {
 .selected {
     border: 2px solid red !important;
 }
+
+.js-gallery {
+    overflow: auto;
+}

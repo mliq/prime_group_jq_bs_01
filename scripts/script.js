@@ -15,11 +15,9 @@ function Game(name, image, icon, deck, platforms) {
 
 // Returns a string that can be appended to a given row
 Game.prototype.displayFromRight = function(){
-	$gallery = $('.js-gallery');
-	// Slide out the first game
-	$gallery.css({"left" : "0px"});
-	$gallery.animate({"left" : "-=100px"});
-	$gallery.fadeOut();
+	$gallery = $('.js-gallery-game');
+	// Sliding animation
+	$gallery.animate({width:'toggle'},350);
 	// Build the new game's information
 	$gallery.empty();
 	$gallery.append('<div class="gallery-head">' + this.name + '</div>');
@@ -27,9 +25,7 @@ Game.prototype.displayFromRight = function(){
     $gallery.append('<div class="gallery-platforms"><h4>Platforms</h4><p>' + this.platforms + '</p></div>');
     $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
 	// Slide in the new game
-	$gallery.css({"left" : "0px", "right" : "-100px"});
-	$gallery.fadeIn();
-	$gallery.animate({"right" : "+=100px"});
+	$gallery.animate({width:'toggle'},350);
 };
 
 // Button functionality
