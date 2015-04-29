@@ -98,3 +98,7 @@ h1, h2, h3 {
 .js-game-icons div img {
     border: 1px solid #212121;
 }
+
+.selected {
+    border: 2px solid red !important;
+}

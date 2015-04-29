@@ -31,6 +31,7 @@ function showNextGame() {
 		currentGame = 0;
 	}
 	games[currentGame].display();
+    selectGameIcon();
 }
 
 function showPrevGame() {
@@ -42,6 +43,7 @@ function showPrevGame() {
 		currentGame = games.length-1;
 	}
 	games[currentGame].display();
+    selectGameIcon();
 }
 
 // Use this function to do stuff with your results. 
@@ -74,14 +76,19 @@ function searchCallback(results) {
 		// Make a new game object and add it to the array of games
 		games.push(new Game(results[i].name, image, icon, deck));
 
-        $('.js-game-icons').append("<div data-game='" + i + "'><img src='" + icon + "'></div>");
+        $('.js-game-icons').append("<div class='gameNumber" + i + "'><img src='" + icon + "'></div>");
 	}
 	// When finished, reset currentGame to the first game in the list and display it
 	currentGame = 0;
 	games[currentGame].display();
+    selectGameIcon();
 	$('main').fadeIn();
 }
 
+function selectGameIcon(){
+    $('.js-game-icons div img').removeClass('selected');
+    $('.gameNumber'+currentGame+' img').addClass('selected');
+}
 
 // HELPER FUNCTION
 // Executes a search using 'query' and runs searchCallback on the results of a success.
