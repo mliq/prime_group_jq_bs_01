@@ -71,3 +71,8 @@ h1, h2, h3 {
 .container {
     margin-bottom: 20px;
 }
+
+/* Module: Gallery */
+.gallery-head {
+    text-align: center;
+}

@@ -15,9 +15,11 @@ function Game(name, image, deck) {
 Game.prototype.display = function(){
 	$gallery = $('.js-gallery');
 	$gallery.empty();
-	$gallery.append('<h3>' + this.name + '</h3>');
+	$gallery.append('<div class="gallery-head">' + this.name + '</h3>');
+	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
 };
 
+// Button functionality
 function showNextGame() {
 	// Check if "next" index is not going to be invalid
 	if (currentGame+1 < games.length) {
@@ -32,7 +34,7 @@ function showNextGame() {
 function showPrevGame() {
 	// Check if "previous" index is not going to be invalid
 	if (currentGame-1 >= 0) {
-		currentGame++;
+		currentGame--;
 	}
 	else {
 		currentGame = games.length-1;
