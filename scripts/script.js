@@ -181,11 +181,10 @@ $(document).ready(function() {
 	// Button that shows detailed description
 	$('.js-gallery').on('click', '.js-btn-read', function(){
 		var $details = $('.gallery-details');
-		if ($details.attr("class", "hidden")) {
+		if ($details.hasClass("hidden")) {
 			$(this).text('Hide Details');
 			$details.removeClass('hidden');
 		}
-		// TODO: Debug why this else never triggers (div will show but not hide again)
 		else {
 			$(this).text('Show Details');
 			$details.addClass('hidden');
