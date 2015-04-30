@@ -166,10 +166,11 @@ $(document).ready(function() {
 
     // Make thumbnail icons clickable
     $('.js-game-icons').on('click', 'div', function(){
-        currentGame = $(this).attr('class').slice(-1);
+        currentGame = parseInt($(this).attr('class').slice(-1));
         games[currentGame].display();
         selectGameIcon();
     });
+
 	// Hide js-load and gallery
 	$('.js-load').hide();
 	$('main').hide();
