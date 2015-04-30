@@ -72,7 +72,7 @@ function searchCallback(results) {
 		// Placeholder images and decks as appropriate
 		if (!results[i].image) {
 			image = "http://placekitten.com/g/500/500";
-			icon = "http://placekitten.com/g/16/16";
+			icon = "http://placekitten.com/g/30/30";
 		}
 		else {
 			image = results[i].image.small_url;
@@ -163,6 +163,13 @@ function search(query){
 
 // Do when the document is ready
 $(document).ready(function() {
+
+    // Make thumbnail icons clickable
+    $('.js-game-icons').on('click', 'div', function(){
+        currentGame = $(this).attr('class').slice(-1);
+        games[currentGame].display();
+        selectGameIcon();
+    });
 	// Hide js-load and gallery
 	$('.js-load').hide();
 	$('main').hide();
