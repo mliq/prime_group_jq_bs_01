@@ -68,7 +68,7 @@ function searchCallback(results) {
     $('.js-game-icons').empty();
 
 	// Only get the top 9 results
-	for (i=0; i<8; i++){
+	for (i=0; i<8 && i<results.length; i++){
 		// Placeholder images and decks as appropriate
 		if (!results[i].image) {
 			image = "http://placekitten.com/g/500/500";
