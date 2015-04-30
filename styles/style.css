@@ -86,13 +86,21 @@ h1, h2, h3 {
 
 .js-game-icons div {
     margin-right: 10px;
-    display: inline;
+    display: inline-block;
     cursor: pointer;
+    background-color: orangered;
+    width: auto;
+    height: auto;
+}
+
+.js-game-icons div:hover {
+    background-color: white;
 }
 
 .js-game-icons {
     margin: 0 auto 20px auto;
     text-align: center;
+    height: 30px;
 }
 
 .js-game-icons div img {
@@ -100,14 +108,12 @@ h1, h2, h3 {
 }
 
 .js-game-icons div img:hover {
-    background-color: white;
     opacity: .5;
 }
 
 .selected {
     border: 2px solid orangered !important;
-    background-color: orangered;
-    opacity: .5;
+    opacity: .65;
 }
 
 .js-gallery {
