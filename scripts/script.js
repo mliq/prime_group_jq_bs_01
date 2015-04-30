@@ -22,8 +22,8 @@ Game.prototype.display = function(){
 	$gallery.append('<div class="gallery-head">' + this.name + '</div>');
 	$gallery.append('<div class="gallery-img"><img src="' + this.image + '"></div>');
     $gallery.append('<div class="gallery-platforms"><h4>Platforms</h4><p>' + this.platforms + '</p></div>');
-    $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p></div>');
-    $gallery.append('<div class="">' + this.description + "</div>");
+    $gallery.append('<div class="gallery-desc"><h4>Description</h4><p>' + this.deck + '</p><button class="btn btn-default js-btn-read">Show Details</button></div>');
+    $gallery.append('<div class="gallery-details hidden">' + this.description + "</div>");
 	// Fade in the new game
 	$gallery.fadeIn();
 };
@@ -78,7 +78,7 @@ function searchCallback(results) {
 			image = results[i].image.small_url;
 			icon = results[i].image.tiny_url;
 		}
-		if (results[i].deck == null || "  " || " ") {
+		if (results[i].deck == null) {
 			deck = "Description unavailable.";
 		}
 		else {
@@ -97,13 +97,13 @@ function searchCallback(results) {
         }
         // Check if description is null, if null, use deck, store to descriptionString
         descriptionString = "";
-        if (results[i].description == null || "  " || " ") {
-            descriptionString = "No Description Available";
+        if (results[i].description == null) {
+            descriptionString = "Description unavailable";
         } else {
             descriptionString = results[i].description;
         }
         // Truncate and clean descriptionString
-        descriptionString = descriptionString.replace(/<(?:.|\n)*?>/gm, '');
+        //descriptionString = descriptionString.replace(/<(?:.|\n)*?>/gm, '');
         //descriptionString = descriptionString.slice(0,150);
 
         // Make a new game object and add it to the array of games
@@ -178,6 +178,20 @@ $(document).ready(function() {
 		}
 	});
 
+	// Button that shows detailed description
+	$('.js-gallery').on('click', '.js-btn-read', function(){
+		var $details = $('.gallery-details');
+		if ($details.attr("class", "hidden")) {
+			$(this).text('Hide Details');
+			$details.removeClass('hidden');
+		}
+		// TODO: Debug why this else never triggers (div will show but not hide again)
+		else {
+			$(this).text('Show Details');
+			$details.addClass('hidden');
+		}
+	});
+
 	// Allows you to press enter in order to trigger the search button
 	$('.js-query').keyup(function(event) {
 		if (event.keyCode == 13) {
@@ -185,10 +199,10 @@ $(document).ready(function() {
 		}
 	});
 
+	// Buttons to go to next and previous games
 	$('.js-btn-prev').click(function() {
 		showPrevGame();
 	});
-
 	$('.js-btn-next').click(function() {
 		showNextGame();
 	});
