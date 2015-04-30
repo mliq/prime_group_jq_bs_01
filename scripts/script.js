@@ -183,11 +183,13 @@ $(document).ready(function() {
 		var $details = $('.gallery-details');
 		if ($details.hasClass("hidden")) {
 			$(this).text('Hide Details');
-			$details.removeClass('hidden');
+			$details.removeClass('hidden').hide().slideDown(1000);
 		}
 		else {
 			$(this).text('Show Details');
-			$details.addClass('hidden');
+            $details.slideUp(1000,function() {
+                $('.gallery-details').addClass('hidden').hide();
+            });
 		}
 	});
 
