@@ -106,3 +106,7 @@ h1, h2, h3 {
 .js-gallery {
     overflow: auto;
 }
+
+.js-load {
+    margin: 20px 0 -73px;
+}
