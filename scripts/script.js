@@ -199,10 +199,12 @@ $(document).ready(function() {
 	});
 
 	// Buttons to go to next and previous games
-	$('.js-btn-prev').click(function() {
-		showPrevGame();
+	$('.js-btn-prev').click(function(event) {
+		event.preventDefault();
+        showPrevGame();
 	});
-	$('.js-btn-next').click(function() {
-		showNextGame();
+	$('.js-btn-next').click(function(event) {
+        event.preventDefault();
+        showNextGame();
 	});
 });
